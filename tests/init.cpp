@@ -1,5 +1,5 @@
 
-#include <sharedptr.cpp>
+#include <shared.cpp>
 #include <catch.hpp>
 #include <iostream>
 
