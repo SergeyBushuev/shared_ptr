@@ -50,7 +50,7 @@ Shared_ptr<T>::Shared_ptr(const Shared_ptr<T>& src) noexcept  : ptr(src.ptr), co
 }
 
 template <typename T>
-Shared_ptr<T>::Shared_ptr(Shared_ptr<T>&& src) : ptr(src.ptr), count(src.count) noexcept 
+Shared_ptr<T>::Shared_ptr(Shared_ptr<T>&& src) noexcept : ptr(src.ptr), count(src.count) 
 {
 	src.ptr = nullptr;
 	src.count = nullptr;
