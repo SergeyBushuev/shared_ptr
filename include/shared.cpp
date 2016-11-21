@@ -33,15 +33,15 @@ auto make_shared(Args && ...args) -> Shared_ptr<T>
 }
 
 template <class T>
-noexcept Shared_ptr<T>::Shared_ptr() : ptr(nullptr), count(nullptr)
+Shared_ptr<T>::Shared_ptr() : ptr(nullptr), count(nullptr) noexcept 
 {}
 
 template <class T>
-noexcept Shared_ptr<T>::Shared_ptr(T* pointer) : ptr(pointer), count(new size_t(1))
+Shared_ptr<T>::Shared_ptr(T* pointer) : ptr(pointer), count(new size_t(1)) noexcept 
 {}
 
 template <class T>
-noexcept Shared_ptr<T>::Shared_ptr(const Shared_ptr<T>& src) : ptr(src.ptr), count(src.count)
+Shared_ptr<T>::Shared_ptr(const Shared_ptr<T>& src) : ptr(src.ptr), count(src.count) noexcept 
 {
 	if (src.ptr != nullptr)
 	{
@@ -50,14 +50,14 @@ noexcept Shared_ptr<T>::Shared_ptr(const Shared_ptr<T>& src) : ptr(src.ptr), cou
 }
 
 template <typename T>
-noexcept Shared_ptr<T>::Shared_ptr(Shared_ptr<T>&& src) : ptr(src.ptr), count(src.count)
+Shared_ptr<T>::Shared_ptr(Shared_ptr<T>&& src) : ptr(src.ptr), count(src.count) noexcept 
 {
 	src.ptr = nullptr;
 	src.count = nullptr;
 }
 
 template <class T>
-noexcept Shared_ptr<T> Shared_ptr<T>::operator= (Shared_ptr<T>& other)
+Shared_ptr<T> Shared_ptr<T>::operator= (Shared_ptr<T>& other) noexcept 
 {
 	if (this != &other)
 	{
@@ -67,14 +67,15 @@ noexcept Shared_ptr<T> Shared_ptr<T>::operator= (Shared_ptr<T>& other)
 }
 
 template <typename T>
-noexcept Shared_ptr<T>& Shared_ptr<T>::operator = (Shared_ptr<T>&& other)
+Shared_ptr<T>& Shared_ptr<T>::operator = (Shared_ptr<T>&& other) noexcept 
 {
 	if (this != &other) this->swap(other); 
 	return *this;
 }
 
 template <class T>
-noexcept Shared_ptr<T>::~Shared_ptr(){
+Shared_ptr<T>::~Shared_ptr() noexcept 
+{
 	if (count) {
 		if (*count == 1) {
 			delete count;
@@ -85,7 +86,7 @@ noexcept Shared_ptr<T>::~Shared_ptr(){
 }
 
 template <class T>
-noexcept bool Shared_ptr<T>::unique() const
+bool Shared_ptr<T>::unique() const noexcept 
 {
 	if (count == nullptr)
 		return (false);
@@ -93,7 +94,7 @@ noexcept bool Shared_ptr<T>::unique() const
 }
 
 template <class T>
-noexcept size_t Shared_ptr<T>::use_count() const
+size_t Shared_ptr<T>::use_count() const noexcept 
 {
 	if (count == nullptr)
 		return 0;
@@ -102,25 +103,25 @@ noexcept size_t Shared_ptr<T>::use_count() const
 }
 
 template <class T>
-noexcept T* Shared_ptr<T>::get() const
+T* Shared_ptr<T>::get() const noexcept 
 {
 	return ptr;
 }
 
 template <class T>
-noexcept Shared_ptr<T>::operator bool()
+Shared_ptr<T>::operator bool() noexcept 
 {
 	return (this->get() != nullptr);
 }
 
 template <class T>
-noexcept void Shared_ptr<T>::reset()
+void Shared_ptr<T>::reset() noexcept 
 {
 	this->swap(Shared_ptr());
 }
 
 template <class T>
-noexcept T* Shared_ptr<T>::operator ->() const 
+T* Shared_ptr<T>::operator ->() const  noexcept 
 {
 	if (ptr == nullptr) 
 	{
@@ -130,7 +131,7 @@ noexcept T* Shared_ptr<T>::operator ->() const
 }
 
 template <class T>
-noexcept T& Shared_ptr<T>::operator *() const
+T& Shared_ptr<T>::operator *() const noexcept 
 {
 	if (ptr == nullptr) 
 	{
@@ -140,7 +141,7 @@ noexcept T& Shared_ptr<T>::operator *() const
 }
 
 template <class T>
-noexcept void Shared_ptr<T>::swap(Shared_ptr<T>& other)
+void Shared_ptr<T>::swap(Shared_ptr<T>& other) noexcept 
 {
 	std::swap(ptr, other.ptr);
 	std::swap(count, other.count);
