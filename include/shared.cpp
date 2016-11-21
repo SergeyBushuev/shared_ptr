@@ -5,22 +5,22 @@ template <class T>
 class Shared_ptr
 {
 public:
-	Shared_ptr();
-	Shared_ptr(T* pointer);
-	Shared_ptr(const Shared_ptr<T>& src);
-	Shared_ptr(Shared_ptr<T>&& src);
-	Shared_ptr<T> operator= (Shared_ptr<T>& other);
-	Shared_ptr<T>& operator= (Shared_ptr<T>&& other); 
-	~Shared_ptr();
+	Shared_ptr() noexcept;
+	Shared_ptr(T* pointer); /*strong*/
+	Shared_ptr(const Shared_ptr<T>& src) noexcept;
+	Shared_ptr(Shared_ptr<T>&& src) noexcept;
+	Shared_ptr<T> operator= (Shared_ptr<T>& other); /*strong*/
+	Shared_ptr<T>& operator= (Shared_ptr<T>&& other); /*strong*/
+	~Shared_ptr() noexcept; 
 	
-	bool unique() const;
-	size_t use_count() const;
-	T* get() const;
-	operator bool();
-	void reset();
-	T* operator ->() const;
-	T& operator *() const; 
-        void swap(Shared_ptr<T>&);
+	bool unique() const noexcept;
+	size_t use_count() const noexcept;
+	T* get() const noexcept;
+	operator bool() noexcept;
+	void reset() noexcept;
+	T* operator ->() const; /*strong*/
+	T& operator *() const;  /*strong*/
+        void swap(Shared_ptr<T>&) noexcept;
 private:
 	T* ptr;
 	size_t* count;
