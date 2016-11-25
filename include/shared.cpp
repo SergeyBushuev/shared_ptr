@@ -69,8 +69,15 @@ Shared_ptr<T> Shared_ptr<T>::operator= (Shared_ptr<T>& other)
 template <typename T>
 Shared_ptr<T>& Shared_ptr<T>::operator = (Shared_ptr<T>&& other) 
 {
-	if (this != &other) this->swap(other); 
-	return *this;
+	if (this != &other)
+	{
+            int * array = new int[other.count];
+            std::copy(other.ptr, other.ptr + other.count, array);
+            delete [] ptr;
+            ptr = array;
+            count = other.count;
+        }
+        return *this;
 }
 
 template <class T>
