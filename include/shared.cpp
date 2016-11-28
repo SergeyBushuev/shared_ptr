@@ -71,11 +71,7 @@ Shared_ptr<T>& Shared_ptr<T>::operator = (Shared_ptr<T>&& other)
 {
 	if (this != &other)
 	{
-            int * array = new int[other.count];
-            std::copy(other.ptr, other.ptr + other.count, array);
-            delete [] ptr;
-            ptr = array;
-            count = other.count;
+            shared_ptr(std::move(other))).swap(*this);
         }
         return *this;
 }
