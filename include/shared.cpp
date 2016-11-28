@@ -71,7 +71,7 @@ Shared_ptr<T>& Shared_ptr<T>::operator = (Shared_ptr<T>&& other)
 {
 	if (this != &other)
 	{
-            shared_ptr(std::move(other))).swap(*this);
+            shared_ptr(std::move(other)).swap(*this);
         }
         return *this;
 }
